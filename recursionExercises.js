@@ -120,14 +120,14 @@ Array.prototype.mergeSort = function() {
   var leftArray = this.slice(0, middle);
   var rightArray = this.slice(middle);
 
-  return merge(leftArray.mergeSort, rightArray.mergeSort);
+  return merge(leftArray.mergeSort(), rightArray.mergeSort());
 
 };
 
 function merge(left, right) {
   var newArray = [];
 
-  while (left.length > 0 || right.length > 0) {
+  while (left.length > 0 && right.length > 0) {
     if (left[0] > right[0]) {
       newArray.push(right.shift());
     } else {
@@ -140,4 +140,29 @@ function merge(left, right) {
     return newArray;
 }
 
-console.log([3,2,5,7,3,2,1,6,8].mergeSort());
+// console.log([3,2,5,7,3,2,1,6,8].mergeSort());
+
+// console.log(merge([3,2,1], [7,2,1]));
+
+function subsets(array) {
+  if (array.length === 0) {
+    return [[]];
+  }
+
+  var prevArray = subsets(array.slice(0, array.length - 1));
+
+  var lastVal = [array[array.length - 1]];
+  var tempArray = prevArray.slice(0);
+
+  // for (var i = 0; i < prevArray.length; i++) {
+  //   tempArray.push(prevArray[i]);
+  // }
+
+  for (var i = 0; i < prevArray.length; i++) {
+    tempArray.push(prevArray[i].concat(lastVal));
+  }
+
+  return tempArray;
+}
+
+// console.log(subsets([1, 2, 3]));
